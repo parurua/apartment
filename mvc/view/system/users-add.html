@@ -1,0 +1,44 @@
+<div id="element" style="display: none"></div>
+<form id="user_add_form" data-parsley-errors-container="#element">
+<div class="add_menber" id="add_menber_style">
+    <ul class=" page-content">
+        <li>
+            <label class="label_name"><i style="color:#F63">*</i>用户名：</label>
+            <span class="add_name"><input name="username"  type="text"  class="text_add"
+                                          required
+                                          data-parsley-type="alphanum"
+                                          data-parsley-required-message="用户名为必填项"
+                                          data-parsley-length="[3, 10]"
+                                          data-parsley-length-message="用户名字符长度应该在3到10之间"
+                                          data-parsley-trigger="blur"
+                                          data-parsley-remote="/users/exits"
+                                          data-parsley-remote-message="您填写的用户名已存在"/></span>
+        </li>
+        <li>
+            <label class="label_name"><i style="color:#F63">*</i>姓名：</label>
+            <span class="add_name"><input name="name" type="text"  class="text_add"  required data-parsley-required-message="姓名为必填项"/></span>
+        </li>
+        <li>
+            <label class="label_name">性别：</label>
+            <span class="add_name">
+                 <label><input name="sex" type="radio" checked="checked" class="ace" value="男"><span class="lbl">男</span></label>&nbsp;&nbsp;&nbsp;
+                 <label><input name="sex" type="radio" class="ace" value="女"><span class="lbl" >女</span></label>&nbsp;&nbsp;&nbsp;
+             </span>
+        </li>
+        <li>
+            <label class="label_name">手机：</label>
+            <span class="add_name"><input name="phone" type="text" class="text_add" data-parsley-pattern="\d{11}" data-parsley-error-message="请输入正确格式的手机号"/></span>
+        </li>
+        <li>
+            <label class="label_name">邮箱：</label>
+            <span class="add_name"><input name="email" type="text" data-parsley-type="email" class="text_add"/></span>
+        </li>
+        <li class="adderss"><label class="label_name">权限：</label>
+            <span class="add_name">
+                 <label><input name="adminFlag" type="radio" class="ace" checked="checked" value="0"><span class="lbl">一般用户</span></label>&nbsp;&nbsp;&nbsp;
+                 <label><input name="adminFlag" type="radio" class="ace" value="1"><span class="lbl">管理员</span></label>
+            </span>
+        </li>
+    </ul>
+</div>
+</form>

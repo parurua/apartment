@@ -1,0 +1,40 @@
+<div id="element" style="display: none"></div>
+<form id="user_edit_form" data-parsley-errors-container="#element">
+<div class="add_menber" id="add_menber_style">
+    <ul class=" page-content">
+        <li>
+            <label class="label_name"><i style="color:#F63">*</i>用户名：</label>
+            <span class="add_name">{{user.username}}</span>
+        </li>
+        <li>
+            <label class="label_name"><i style="color:#F63">*</i>姓名：</label>
+            <span class="add_name"><input name="name" type="text"  class="text_add" value="{{user.name}}" required data-parsley-required-message="姓名为必填项"/></span>
+        </li>
+        <li>
+            <label class="label_name">性别：</label>
+            <span class="add_name">
+                 <label>
+                     <input name="sex" type="radio" class="ace" value="男"  {%if user.sex == "男"%}checked="checked"{%endif%}>
+                     <span class="lbl">男</span></label>&nbsp;&nbsp;&nbsp;
+                 <label>
+                     <input name="sex" type="radio" class="ace" value="女" {%if user.sex == "女"%}checked="checked" {% endif%}>
+                     <span class="lbl" >女</span></label>&nbsp;&nbsp;&nbsp;
+             </span>
+        </li>
+        <li>
+            <label class="label_name">手机：</label>
+            <span class="add_name"><input name="phone" type="text"  class="text_add" value="{{user.phone}}"/></span>
+        </li>
+        <li>
+            <label class="label_name">邮箱：</label>
+            <span class="add_name"><input name="email" type="text"  class="text_add" value="{{user.email}}"/></span>
+        </li>
+        <li class="adderss"><label class="label_name">权限：</label>
+            <span class="add_name">
+                 <label><input name="adminFlag" type="radio" class="ace" value="0" {%if user.adminFlag == '0'%}checked="checked"{%endif%}><span class="lbl">一般用户</span></label>&nbsp;&nbsp;&nbsp;
+                 <label><input name="adminFlag" type="radio" class="ace" value="1" {%if user.adminFlag == '1'%}checked="checked"{%endif%}><span class="lbl">管理员</span></label>
+            </span>
+        </li>
+    </ul>
+</div>
+</form>
