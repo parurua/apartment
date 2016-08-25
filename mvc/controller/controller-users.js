@@ -1,6 +1,33 @@
 var mongoose = require('mongoose');
 var Account = mongoose.model('Account');
 
+exports.loginPage = async(function* (req, res, next){
+    try{
+        res.render('login', {title:'登录', username : req.flash('username')});
+    }catch(err){
+        next(err);
+    }
+});
+
+exports.login = async(function* (req, res, next){
+    try{
+        req.session.userId = req.user.username;
+        var returnTo = req.session.returnTo==undefined?'/':req.session.returnTo;
+        res.redirect(returnTo);
+    }catch(err){
+        next(err);
+    }
+});
+
+exports.logout = async(function* (req, res, next){
+    try{
+        req.logout();
+        res.redirect('/login');
+    }catch(err){
+        next(err);
+    }
+});
+
 exports.exitsCheck = async(function* (req, res, next){
     try{
         var user = yield Account.findByUsername(req.query.username);
@@ -43,6 +70,17 @@ exports.password = async(function* (req, res, next){
     }
 });
 
+exports.editProfile = async(function* (req, res, next){
+    try{
+        var _user = yield Account.findByUsername(req.user.username);
+        yield Account.update({_id:_user._id}, req.body);
+        req.flash(SUCCESS,'修改成功');
+        res.redirect('/profile');
+    }catch(err){
+        return next(err);
+    }
+});
+
 exports.list = async(function* (req, res, next){
     try{
         var condition = {};
@@ -56,7 +94,7 @@ exports.list = async(function* (req, res, next){
     }
 });
 
-exports.intoAdd = async(function* (req, res, next){
+exports.addPage = async(function* (req, res, next){
     try{
         res.render('system/users-add', {title: '用户新增'});
     }catch(err){
@@ -64,14 +102,14 @@ exports.intoAdd = async(function* (req, res, next){
     }
 });
 
-exports.submitAdd = async(function* (req, res, next){
+exports.add = async(function* (req, res, next){
     try{
         var user = req.body;
         user.createTime = new Date();
         user.createUser = req.user?req.user.username:'sys';
         Account.register(new Account(user), '888888', function(err, account) {
-            req.flash(SUCCESS,'新增成功');
-            res.json(1);
+            req.flash(SUCCESS,'用户新增成功');
+            res.redirect('/users');
         });
     }catch(err){
         return next(err);
@@ -83,13 +121,13 @@ exports.delete = async(function* (req, res, next){
         var userId = req.params.username;
         yield Account.remove({username: userId});
         req.flash(SUCCESS,'删除成功');
-        res.json(1);
+        res.redirect('/users');
     }catch(err){
         next(err);
     }
 });
 
-exports.intoEdit = async(function* (req, res, next){
+exports.editPage = async(function* (req, res, next){
     try{
         var user = yield  Account.findByUsername(req.params.username);
         res.render('system/users-edit', {title: '修改用户', user: user});
@@ -98,12 +136,12 @@ exports.intoEdit = async(function* (req, res, next){
     }
 });
 
-exports.submitEdit = async(function* (req, res, next){
+exports.edit = async(function* (req, res, next){
     try{
         var _user = yield Account.findByUsername(req.params.username);
         yield Account.update({_id:_user._id}, req.body);
-        req.flash(SUCCESS,'修改成功');
-        res.json(1);
+        req.flash(SUCCESS,'用户修改成功');
+        res.redirect('/users');
     }catch(err){
         return next(err);
     }

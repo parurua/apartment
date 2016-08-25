@@ -14,7 +14,7 @@ module.exports = function(app){
     passport.use(Account.createStrategy());
     passport.serializeUser(Account.serializeUser());
     passport.deserializeUser(Account.deserializeUser());
-
+    
     //验证是否已经登录
     app.use(function(req, res, next) {
         if (req.path != "/login") {
@@ -28,22 +28,6 @@ module.exports = function(app){
         next();
     });
 
-    app.get('/login', function (req, res, next) {
-        res.render('login', {title:'登录', username : req.flash('username')});
-    });
 
-    app.post('/login',
-        passport.authenticate('local', { failureRedirect: '/login',failureFlash: true}),
-        function(req, res) {
-            req.session.userId = req.user.username;
-            var returnTo = req.session.returnTo==undefined?'/':req.session.returnTo;
-            res.redirect(returnTo);
-        }
-    );
-
-    app.get('/logout', function (req, res, next) {
-        req.logout();
-        res.redirect('/login');
-    });
 
 }

@@ -1,5 +1,4 @@
-<div id="element" style="display: none"></div>
-<form id="user_add_form" data-parsley-errors-container="#element">
+<form id="user_add_form" method="post" action="/users/add">
 <div class="add_menber" id="add_menber_style">
     <ul class=" page-content">
         <li>
@@ -27,13 +26,13 @@
         </li>
         <li>
             <label class="label_name">手机：</label>
-            <span class="add_name"><input name="phone" type="text" class="text_add" data-parsley-pattern="\d{11}" data-parsley-error-message="请输入正确格式的手机号"/></span>
+            <span class="add_name"><input name="phone" type="text" class="text_add" data-parsley-pattern="\d+" data-parsley-error-message="请输入正确格式的手机号"/></span>
         </li>
         <li>
             <label class="label_name">邮箱：</label>
             <span class="add_name"><input name="email" type="text" data-parsley-type="email" class="text_add"/></span>
         </li>
-        <li class="adderss"><label class="label_name">权限：</label>
+        <li><label class="label_name">权限：</label>
             <span class="add_name">
                  <label><input name="adminFlag" type="radio" class="ace" checked="checked" value="0"><span class="lbl">一般用户</span></label>&nbsp;&nbsp;&nbsp;
                  <label><input name="adminFlag" type="radio" class="ace" value="1"><span class="lbl">管理员</span></label>

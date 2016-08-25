@@ -43,46 +43,8 @@
     <script src="assets/js/jquery.dataTables.min.js"></script>
     <script src="assets/js/jquery.dataTables.bootstrap.js"></script>
     <script src="i18n/zh_cn.js"></script>
+    <script src="js/base.js"></script>
     <script type="text/javascript">
-
-        if (!Array.isArray) {
-            Array.isArray = function(arg) {
-                return Object.prototype.toString.call(arg) === '[object Array]';
-            };
-        }
-
-        $.fn.serializeObject = function() {
-            var o = {};
-            var a = this.serializeArray();
-            $.each(a, function() {
-                if (o[this.name] !== undefined) {
-                    if (!o[this.name].push) {
-                        o[this.name] = [o[this.name]];
-                    }
-                    o[this.name].push(this.value || '');
-                } else {
-                    o[this.name] = this.value || '';
-                }
-            });
-            return o;
-        };
-
-        /*********************点击事件*********************/
-
-
-            //时间设置
-            function currentTime() {
-                var d = new Date(), str = '';
-                str += d.getFullYear() + '年';
-                str += d.getMonth() + 1 + '月';
-                str += d.getDate() + '日';
-                str += d.getHours() + '时';
-                str += d.getMinutes() + '分';
-                str += d.getSeconds() + '秒';
-                return str;
-            }
-
-
 
         jQuery(document).ready(function() {
 
@@ -96,23 +58,12 @@
             var error = '{{error}}';  //2
 
             if(info){
-                layer.alert(info, {
-                    title: '提示',
-                    icon: 0
-                });
+                _alert(info, 1);
             }else if(success){
-                layer.alert(success, {
-                    title: '成功',
-                    icon: 1
-                });
+                _alert(success, 1);
             }else if(error){
-                layer.alert(error, {
-                    title: '失败',
-                    icon: 2
-                });
+                _alert(error, 2);
             }
-
-
 
             $.each($(".submenu"), function () {
                 var $aobjs = $(this).children("li");
@@ -148,19 +99,8 @@
             });
 
             $('#Exit_system').on('click', function(){
-                layer.confirm('是否确定退出系统？', {
-                            btn: ['是','否'] ,//按钮
-                            icon:0,
-                        },
-                        function(){
-                            location.href="/logout";
-
-                        });
-
+                _confirmWin('是否确定退出系统', '/logout');
             });
-
-
-
 
         });
 
@@ -235,9 +175,10 @@
             {% endblock %}
             </div>
         </div>
-        {% include 'setting.html' %}
+        <!--{% include 'setting.html' %}-->
     </div>
 </div>
+<div id="parsley-messages" style="display: none"></div>
 {% include 'footer.html' %}
 </body>
 </html>

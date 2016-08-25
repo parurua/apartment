@@ -92,14 +92,14 @@
 
             $.ajax({
                 type: "POST",
-                url: "/users/edit/" + id,
+                url: "/profile/edit/",
                 data: {
                     name: name,
                     sex: sex,
                     phone: phone,
                     email: email
                 },
-                dataType: "json",
+                dataType: "html",
                 success: function (data) {
                     location.href = '/profile';
                 }
@@ -170,15 +170,10 @@
                         },
                         dataType: "json",
                         success: function (data) {
-
                             layer.alert(data.msg);
-                            console.log(data.flag);
                             if(data.flag == 1){
                                 layer.close(index);
                             }
-
-
-
                         }
                     });
 
